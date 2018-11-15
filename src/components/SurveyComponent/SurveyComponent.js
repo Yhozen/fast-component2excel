@@ -1,6 +1,6 @@
 import stampit from '@stamp/it';
 import BaseLayoutComponent from '../BaseLayoutComponent/BaseLayoutComponent';
-import SelectComponent from '../SelectComponent/SelectComponent';
+import RadioComponent from '../RadioComponent/RadioComponent';
 
 export default stampit(BaseLayoutComponent, {
   init({component}) {
@@ -40,7 +40,7 @@ export default stampit(BaseLayoutComponent, {
         };
         const component = {label, position, shape, key, values: this.values, labelPosition};
 
-        SelectComponent({ component, specialComponent: true }).render(sheet);
+        RadioComponent({ component, specialComponent: true }).render(sheet);
         start = start.relativeCell(BaseLayoutComponent.baseWidth + 1, 0);
         end = sheet.row(start.rowNumber() + BaseLayoutComponent.baseWidth - 1).cell(endColumn);
       });
