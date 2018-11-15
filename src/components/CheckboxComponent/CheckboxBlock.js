@@ -17,7 +17,7 @@ export default stampit(BaseComponent, specialSaveInputField, {
   },
   methods: {
     render(sheet) {
-      const values = '"' + 'X,O' + '"';
+      const values = '"' + '1,0' + '"';
 
       const r = sheet.range(this.position.range);
 
@@ -33,7 +33,7 @@ export default stampit(BaseComponent, specialSaveInputField, {
       selectRange.merged(true)
         .style({fill: 'ffffff', horizontalAlignment: 'center'})
         .forEach(this.setOutsideBorder)
-        .value('O')
+        .value('0')
         .dataValidation({
           type: 'list',
           showErrorMessage: true,
