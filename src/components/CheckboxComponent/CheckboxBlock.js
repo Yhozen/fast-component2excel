@@ -53,14 +53,15 @@ export default stampit(BaseComponent, specialSaveInputField, {
       const workbook = sheet.workbook();
 
       if (!this.specialComponent) {
+        const JSONCell = workbook.definedName(VARIABLES_NAME);
 
         workbook.definedName(this.key, selectRange);
-        let previousData = JSON.parse(workbook.definedName(VARIABLES_NAME))[0];
+        let previousData = JSON.parse(JSONCell.value())[0];
 
         previousData[this.key] = this.key;
         const stringData = JSON.stringify([previousData]);
 
-        workbook.definedName(VARIABLES_NAME, stringData);
+        JSONCell.value(stringData);
       } else {
         this.specialSaveInputField(selectRange, this.key);
       }

@@ -2,15 +2,17 @@ import stampit from '@stamp/it';
 import { VARIABLES_NAME } from '../plugins/JsonBuilder';
 
 function getRandomID() {
-  return 'ID' + (Math.random().toString(36) + '00000000000000000').slice(2, 13) +
-    (Math.random().toString(36) + '00000000000000000').slice(2, 13);
+  const randomString = () => (Math.random().toString(36) + '00000000000000000').slice(2, 13);
+
+  return 'ID' + randomString() + randomString();
 }
 export default stampit({
   methods: {
     specialSaveInputField(inputField, key) {
       const workbook = inputField.workbook();
       const ID = getRandomID();
-      let previousData = JSON.parse(workbook.definedName(VARIABLES_NAME))[0];
+      const JSONCell = workbook.definedName(VARIABLES_NAME);
+      let previousData = JSON.parse(JSONCell.value())[0];
       const parent = previousData[key[0]];
       let toSave = {};
 
@@ -24,7 +26,7 @@ export default stampit({
 
       const stringData = JSON.stringify([previousData]);
 
-      workbook.definedName(VARIABLES_NAME, stringData);
+      JSONCell.value(stringData);
     }
   }
 });

@@ -35,7 +35,7 @@ export default stampit({
       return { data };
     },
     main() {
-      const string = this.workbook.definedName(VARIABLES_NAME);
+      const string = this.workbook.definedName(VARIABLES_NAME).value();
 
       return this.buildJson(string);
     }

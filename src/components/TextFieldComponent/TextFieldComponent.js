@@ -89,13 +89,15 @@ export default stampit(BaseComponent, {
 
       if (this.key) {
         workbook.definedName(this.key, this.inputField);
-        let previousData = JSON.parse(workbook.definedName(VARIABLES_NAME))[0];
+        const JSONCell = workbook.definedName(VARIABLES_NAME);
+
+        let previousData = JSON.parse(JSONCell.value())[0];
 
         previousData[this.key] = this.key;
 
         const stringData = JSON.stringify([previousData]);
 
-        workbook.definedName(VARIABLES_NAME, stringData);
+        JSONCell.value(stringData);
       }
     },
     setPrefixSuffix(r) {

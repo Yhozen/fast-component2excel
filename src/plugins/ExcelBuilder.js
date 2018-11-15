@@ -20,9 +20,10 @@ export default stampit({
   methods: {
     async buildWorkbook() {
       const workbook = await XlsxPopulate.fromBlankAsync();
+      const JSONCell = workbook.addSheet('JSON', 0).hidden(true).cell('A1').value(JSON.stringify([{}]));
 
-      workbook.definedName(VARIABLES_NAME, JSON.stringify([{}]));
-      const sheet = workbook.sheet(0).name('Form').gridLinesVisible(false);
+      workbook.definedName(VARIABLES_NAME, JSONCell);
+      const sheet = workbook.sheet(1).name('Form').gridLinesVisible(false);
 
       for (const comp of this.layout.components) {
         this.renderComponent(comp, sheet);
