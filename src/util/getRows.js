@@ -64,7 +64,7 @@ function checkType(comp, rows) {
     } else if (comp.type === 'checkbox' | (comp.type === 'selectboxes')) {
       rows = BaseLayoutComponent.marginWidth + CheckboxBlock.baseWidth;
     } else if (comp.type === 'survey') {
-      rows = BaseLayoutComponent.marginWidth + 4 * comp.values.length - 1;
+      rows = BaseLayoutComponent.marginWidth + 4 * comp.questions.length - 1;
     } else {
       rows = getRows(comp.components, rows);
     }
