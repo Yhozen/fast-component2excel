@@ -2,6 +2,8 @@ import stampit from '@stamp/it';
 
 const VARIABLES_NAME = 'INPUT_DATA_FORMIO';
 
+const getJsDateFromExcel = excelDate => new Date((excelDate - (25567 + 1)) * 86400 * 1000);
+
 export { VARIABLES_NAME };
 
 export default stampit({
@@ -9,6 +11,7 @@ export default stampit({
     this.workbook = workbook;
     this.checkObject = this.checkObject.bind(this);
     this.recusiveCheck = this.recusiveCheck.bind(this);
+    this.dates = [];
   },
   methods: {
     checkObject(value) {
@@ -22,7 +25,11 @@ export default stampit({
         if (checkObject(object[key])) {
           data[key] = recusiveCheck(object[key]);
         } else {
-          data[key] = workbook.definedName(object[key]).startCell().value();
+          if (this.dates && this.dates.includes(object[key])) {
+            data[key] = getJsDateFromExcel(workbook.definedName(object[key]).startCell().value());
+          } else {
+            data[key] = workbook.definedName(object[key]).startCell().value();
+          }
         }
       }
       return data;
@@ -37,6 +44,9 @@ export default stampit({
     main() {
       const string = this.workbook.definedName(VARIABLES_NAME).value();
 
+      this.dates = this.workbook.definedName(VARIABLES_NAME)
+        .sheet().cell('A2').value();
+      console.log(this.dates);
       return this.buildJson(string);
     }
   }
